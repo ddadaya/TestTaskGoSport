@@ -2,6 +2,8 @@ package com.vm.testtaskgosport.presentation
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
 import com.vm.testtaskgosport.data.database.AppDatabase
@@ -15,14 +17,14 @@ class MealViewModel(application : Application): AndroidViewModel(application) {
     private val repository = FoodRepositoryImpl(application)
     private val getCategoryListUseCase = GetCategoryListUseCase(repository)
     private val getMealListUseCase = GetFoodListUseCase(repository)
-    private val loadDataUseCate = LoadDataUseCase(repository)
+    private val loadDataUseCase = LoadDataUseCase(repository)
 
     val mealList = getMealListUseCase()
     val categoryList = getCategoryListUseCase()
 
-    init{
-        viewModelScope.launch{
-            loadDataUseCate()
+    fun loadData(){
+        viewModelScope.launch {
+            loadDataUseCase()
         }
     }
 }

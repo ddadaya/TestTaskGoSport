@@ -22,12 +22,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         setContentView(binding.root)
-        var abc = false
+        viewModel.loadData()
         viewModel.categoryList.observe(this){
-            if(!abc){
-                setupTabs(it)
-                abc = true
-            }
+            setupTabs(it)
         }
     }
 
